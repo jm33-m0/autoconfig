@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Set up Nvidia optimus drivers for fresh-installed Arch Linux
+# created by jm33
+
 if [ $EUID != 0 ];
 then
     echo "You are not root !"
