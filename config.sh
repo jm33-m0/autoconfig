@@ -38,7 +38,8 @@ echo '__________________________________________________________________________
 
 echo ''
 echo '+INFO: Cleaning up...'
-sudo rm ../i3wm-config -rf
+
+cd .. && sudo rm ./i3wm-config -rf
 
 echo ''
 echo '+SUCCESS: Copied config files, reload your i3wm to see the effect'
@@ -59,11 +60,11 @@ fi
 
 echo 'Setting up Emacs...
 '
-cp ./.emacs ~/
+cp ./emacs ~/.emacs
 
 echo 'now Vim...
 '
-cp ./.vimrc ~/
+cp ./vimrc ~/.vimrc
 
 if test -e ~/.emacs || test -e ~/.vimrc; then
     echo 'Done!' && echo ''
