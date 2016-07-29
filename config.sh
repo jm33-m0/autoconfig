@@ -44,9 +44,11 @@ cd .. && sudo rm ./i3wm-config -rf
 echo ''
 echo '+SUCCESS: Copied config files, reload your i3wm to see the effect'
 
-echo '**************************************************'
+echo '
+**************************************************'
 echo 'Now installing config files for Vim and Emacs...'
-echo '**************************************************'
+echo '**************************************************
+'
 
 echo '+INFO: Make sure you are running this script as the user you want to install these config files for
 '
@@ -66,9 +68,10 @@ echo 'now Vim...
 '
 cp ./vimrc ~/.vimrc
 
-if test -e ~/.emacs || test -e ~/.vimrc; then
-    echo 'Done!' && echo ''
+cat ~/.vimrc | grep 'jm33' > /dev/null && cat ~/.emacs | grep 'tango-dark' > /dev/null
+if [ $? -eq 0 ]; then
+    echo '+SUCCESS: Done!' && echo ''
 else
-    echo 'Failed to install
+    echo '+ERROR: Failed to install
     '
 fi
