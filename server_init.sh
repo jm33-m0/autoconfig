@@ -25,7 +25,6 @@ alias i='apt-get install'
 alias cln='apt-get autoremove && apt-get autoclean'
 " >> ~/.zshrc
 wait
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)";
 
 echo '
 **************************************************'
@@ -55,10 +54,12 @@ fi
 
 echo '[*] Now lets install hacker toolchain
 '
-
+hkurl='https://github.com/shell-collection/pwnr-toolchain.git'
 apt-get install hydra nmap -y
 git clone $hkurl
 
 echo '
 [+] Done
 '
+zshurl='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/install.sh'
+sh -c $(curl -k $zshurl);
