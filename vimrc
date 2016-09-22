@@ -10,7 +10,6 @@
 " less to me, the file might be very basic... and buggy(maybe)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -29,6 +28,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 "Plugin 'Valloric/YouCompleteMe'
+Plugin 'flazz/vim-colorschemes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -49,6 +49,15 @@ filetype plugin indent on    " required
 
 " filetype plugin indent on
 
+" YCM
+let g:ycm_global_ycm_extra_conf = '/home/jm33/.vim/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -71,7 +80,6 @@ nmap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -86,7 +94,6 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
@@ -149,10 +156,10 @@ set foldcolumn=1
 syntax enable
 syntax on
 
-try
-    colorscheme delek
-catch
-endtry
+"try
+colorscheme mango
+"catch
+"endtry
 
 set background=dark
 
@@ -206,3 +213,4 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+highlight Pmenu ctermfg=7 ctermbg=234 guibg=#d0d0d0 guifg=#8a8a8a
