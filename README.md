@@ -13,5 +13,5 @@ curl -k 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/install.sh'
 ### Initialize Ubuntu 16.04 with my personalized configs
 
 ```bash
-curl -k 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/server_init.sh'
+curl -k 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/server_init.sh' | bash
 ```
