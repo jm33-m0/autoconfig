@@ -11,6 +11,8 @@ if ! test -e /home/jm33/.ssh; then
 fi
 cp ~/.ssh/authorized_keys /home/jm33/.ssh/ && chown -R jm33:jm33 /home/jm33/.ssh/ && chmod 700 /home/jm33/.ssh/authorized_keys
 wait
+curl -k https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config -o /etc/ssh/sshd_config
+systemctl restart sshd.service
 
 echo '
 **************************************************'
