@@ -17,7 +17,7 @@ echo '
 echo 'Now installing config files for Vim...'
 echo '**************************************************
 '
-
+curl -k https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc -o ./vimrc
 echo '[*] INFO: Make sure you are running this script as the user you want to install these config files for
 '
 sleep 1
