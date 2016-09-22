@@ -10,20 +10,6 @@ if ! test -e /home/jm33/.ssh; then
 	mkdir /home/jm33/.ssh
 fi
 cp ~/.ssh/authorized_keys /home/jm33/.ssh/ && chown -R jm33:jm33 /home/jm33/.ssh/ && chmod 700 /home/jm33/.ssh/authorized_keys
-echo "
-export TERM=xterm
-alias re='reboot'
-alias off='poweroff'
-alias c='reset -Q'
-alias x='clear'
-alias la='ls -la'
-alias q='exit'
-alias m='echo 1 > /proc/sys/vm/drop_caches'
-alias ref='apt-get update'
-alias up='apt-get update && apt-get dist-upgrade -y'
-alias i='apt-get install'
-alias cln='apt-get autoremove && apt-get autoclean'
-" >> ~/.zshrc
 wait
 
 echo '
@@ -62,4 +48,4 @@ echo '
 [+] Done
 '
 zshurl='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/install.sh'
-sh -c $(curl -k $zshurl);
+curl -k $zshurl | bash
