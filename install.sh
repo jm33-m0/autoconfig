@@ -76,7 +76,7 @@ main() {
   printf "${BLUE}Using the Oh My Zsh template file and adding it to ~/.zshrc${NORMAL}\n"
   cp $ZSH/templates/zshrc.zsh-template ~/.zshrc
 
-cat << EOF >> ~/.zshrc
+echo "
 export TERM=xterm
 alias re='reboot'
 alias off='poweroff'
@@ -89,7 +89,7 @@ alias ref='apt-get update'
 alias up='apt-get update && apt-get dist-upgrade -y'
 alias i='apt-get install'
 alias cln='apt-get autoremove && apt-get autoclean'
-EOF
+" >> ~/.zshrc
 
   sed "/^export ZSH=/ c\\
   export ZSH=$ZSH
