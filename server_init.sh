@@ -19,6 +19,7 @@ echo '
 echo 'Now installing config files for Vim...'
 echo '**************************************************
 '
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 curl -k https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc -o ./vimrc
 echo '[*] INFO: Make sure you are running this script as the user you want to install these config files for
 '
