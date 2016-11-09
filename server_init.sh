@@ -41,14 +41,5 @@ else
     '
 fi
 
-echo '[*] Now lets install hacker toolchain
-'
-hkurl='https://github.com/shell-collection/pwnr-toolchain.git'
-apt-get install tor hydra nmap -y
-git clone $hkurl
-
-echo '
-[+] Done
-'
 zshurl='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/install.sh'
 curl -k $zshurl | bash
