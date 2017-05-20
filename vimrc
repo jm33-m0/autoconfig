@@ -1,5 +1,5 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""jm33's VIMRC"""""""""""""""""""""""""""
+"/"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""jm33_ng's VIMRC""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -11,11 +11,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ==>> General
+" ==>> VUNDLE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"pathogen package manager
-"execute pathogen#infect()
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -27,8 +24,16 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'honza/vim-snippets'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'PProvost/vim-ps1'
+"Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'chrisbra/csv.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -49,8 +54,8 @@ filetype plugin indent on    " required
 
 " filetype plugin indent on
 
-" YCM
-let g:ycm_global_ycm_extra_conf = '/home/jm33/.vim/.ycm_extra_conf.py'
+" YCM conf
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -58,6 +63,14 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
+" Hail Py3
+let g:ycm_python_binary_path = 'python3'
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ==>> Comfortable editing
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -67,7 +80,8 @@ set shortmess=atI
 "Hightlight current line and column
 set cursorline
 set cursorcolumn
-
+" Enable Elite mode, No ARRRROWWS!!!!
+let g:elite_mode=1
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
@@ -76,9 +90,22 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
+" Hex edit
+command XXD %!xxd
+" Quit without saving
+command Q q!
+" Set paste
+command P set paste
+command NP set nopaste
+" set pastetoggle=<F3>
+set pastetoggle=<F2>
+" Remove trailing whitespaces
+command T %s/\s\+$//e
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> VIM user interface
@@ -112,30 +139,30 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
+"if has('mouse')
+"  set mouse=a
+"endif
 
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
-set hlsearch
+" set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -149,6 +176,7 @@ set tm=500
 set foldcolumn=1
 
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,18 +184,39 @@ set foldcolumn=1
 syntax enable
 syntax on
 
-"try
-colorscheme mango
-"catch
-"endtry
+try
+    colorscheme molokai
+catch
+    colorscheme mango
+endtry
 
 set background=dark
+set t_Co=256
+let base16colorspace=256
+if (has("termguicolors"))
+    set termguicolors
+endif
+
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+" Controls pop-up window color
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
+highlight Pmenu ctermfg=7 ctermbg=234 guibg=#d0d0d0 guifg=#8a8a8a
+highlight CursorColumn ctermbg=234
+hi Search cterm=NONE ctermfg=grey ctermbg=black
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -177,6 +226,7 @@ set ffs=unix,dos,mac
 set nobackup
 set nowb
 set noswapfile
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -192,26 +242,25 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-"let g:ycm_global_ycm_extra_conf = 0
+" Linebreak on 500 characters
+set lbr
+set tw=80
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
 
 """"""""""""""""""""""""""""""
 " ==>> Status line
 """"""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
+" Height of the command bar
+set cmdheight=1
 
-
-
-""""""""""""""""""""""""""""""""
-" ==>>Others
-""""""""""""""""""""""""""""""""
-highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-highlight clear SpellCap
-highlight SpellCap term=underline cterm=underline
-highlight clear SpellRare
-highlight SpellRare term=underline cterm=underline
-highlight clear SpellLocal
-highlight SpellLocal term=underline cterm=underline
-highlight Pmenu ctermfg=7 ctermbg=234 guibg=#d0d0d0 guifg=#8a8a8a
-highlight CursorColumn ctermbg=234
+" Vim-Airline Configuration
+let g:airline#extensions#tabline#enabled = 1
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1
+let g:airline_powerline_fonts = 1
