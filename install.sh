@@ -35,7 +35,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDVaXjv5cX1pjgURLBSleYZYK/jQNr+RF1Sdqa9RHQT
 EOF
     useradd -m jm33 && \
         mkdir /home/jm33/.ssh
-    cp "$HOME/.ssh/authorized_keys /home/jm33/.ssh"
+    cp $HOME/.ssh/authorized_keys /home/jm33/.ssh
 }
 
 function vim_install() {
@@ -49,6 +49,9 @@ function vim_install() {
         cd $HOME && \
         tar xzvpf vim.tgz && \
         mv vim_files .vim
+
+    cp "$HOME/.vim*" -r /home/jm33 && \
+        chown -R jm33:jm33 /home/jm33/.*
 }
 
 function zsh_install() {
@@ -60,11 +63,11 @@ function install_packages() {
     check_root
     echo '[*] Installing daily packages'
     apt-get update && \
-        apt-get install -y build-essential python-dev python3-dev python-pip python3-pip autoconf automake make cmake clang golang git zsh && \
+        apt-get install -y build-essential python-dev python3-dev python-pip python3-pip autoconf automake make cmake clang golang git zsh elpa-powerline fonts-powerline powerline python-powerline python-powerline-doc python-powerline-taskwarrior python3-powerline python3-powerline-taskwarrior && \
         apt-get dist-upgrade -y
 }
 
 install_packages
-vim_install
-zsh_install
-sshd_config
+grep jm33 "$HOME/.vimrc" || vim_install
+test -e "$HOME/.oh-my-zsh" || zsh_install
+grep "45672" /etc/ssh/sshd_config || sshd_config
