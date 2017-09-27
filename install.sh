@@ -71,3 +71,6 @@ install_packages
 grep jm33 "$HOME/.vimrc" || vim_install
 test -e "$HOME/.oh-my-zsh" || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
+
+# Enable BBR and reboot
+wget --no-check-certificate -qO 'BBR.sh' 'https://moeclub.org/attachment/LinuxShell/BBR.sh' && chmod a+x BBR.sh && bash BBR.sh -f
