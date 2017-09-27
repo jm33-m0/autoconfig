@@ -63,7 +63,7 @@ function install_packages() {
     check_root
     echo '[*] Installing daily packages'
     apt-get update && \
-        apt-get install -y htop iftop bleachbit build-essential python-dev python3-dev python-pip python3-pip autoconf automake make cmake clang golang git zsh && \
+        apt-get install -y nmap glances htop iftop bleachbit build-essential python-dev python3-dev python-pip python3-pip autoconf automake make cmake clang golang git zsh && \
         apt-get dist-upgrade -y
 }
 
