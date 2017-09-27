@@ -24,6 +24,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-airline/vim-airline'
@@ -32,6 +33,8 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'honza/vim-snippets'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'PProvost/vim-ps1'
+Plugin 'scrooloose/nerdtree'
+"Plugin 'weekmonster/gofmt.vim'
 "Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'chrisbra/csv.vim'
 
@@ -104,6 +107,17 @@ command NP set nopaste
 set pastetoggle=<F2>
 " Remove trailing whitespaces
 command T %s/\s\+$//e
+" Auto starts NerdTREE
+" autocmd vimenter * NERDTree
+
+" Toggle NerdTREE
+map <C-z> :NERDTreeToggle<CR>
+
+" Switch to next buffer
+map <F10> :bn<CR>
+
+" How can I close vim if the only window left open is a NERDTree?
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
 
@@ -150,7 +164,7 @@ set ignorecase
 set smartcase
 
 " Highlight search results
-" set hlsearch
+set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch
