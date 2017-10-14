@@ -229,7 +229,7 @@ highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 highlight Pmenu ctermfg=7 ctermbg=234 guibg=#d0d0d0 guifg=#8a8a8a
 highlight CursorColumn ctermbg=234
-hi Search cterm=NONE ctermfg=grey ctermbg=black
+highlight Search cterm=NONE ctermfg=grey ctermbg=black guibg=#2a241a guifg=#8a8a8a
 
 
 
