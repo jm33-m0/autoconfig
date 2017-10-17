@@ -76,8 +76,13 @@ main() {
   printf "${BLUE}Using the Oh My Zsh template file and adding it to ~/.zshrc${NORMAL}\n"
   cp $ZSH/templates/zshrc.zsh-template ~/.zshrc
 
+
+sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
+
 echo "
 export TERM=xterm
+export GOPATH=/projects/golang
+export EDITOR=vim
 alias re='reboot'
 alias off='poweroff'
 alias c='reset -Q'
