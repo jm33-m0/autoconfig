@@ -24,6 +24,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'flazz/vim-colorschemes'
@@ -115,9 +116,12 @@ map <C-z> :NERDTreeToggle<CR>
 
 " Switch to next buffer
 map <F10> :bn<CR>
+map <F5> :SyntasticCheck<CR>
 
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+autocmd BufWritePost *.c %!indent -linux
 
 
 
@@ -278,3 +282,16 @@ let g:airline#extensions#tabline#enabled = 1
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
 let g:airline_powerline_fonts = 1
+
+" synaptic config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+"let g:syntastic_enable_c_checker = 1
+let g:syntastic_enable_python_checker = 1
+let g:syntastic_enable_bash_checker = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
