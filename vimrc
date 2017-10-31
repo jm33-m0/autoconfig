@@ -24,8 +24,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'fatih/vim-go'
+Plugin 'rust-lang/rust.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-airline/vim-airline'
@@ -35,6 +35,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'PProvost/vim-ps1'
 Plugin 'scrooloose/nerdtree'
+"Plugin 'vim-syntastic/syntastic'
 "Plugin 'weekmonster/gofmt.vim'
 "Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'chrisbra/csv.vim'
@@ -116,12 +117,13 @@ map <C-z> :NERDTreeToggle<CR>
 
 " Switch to next buffer
 map <F10> :bn<CR>
-map <F5> :SyntasticCheck<CR>
+"map <F5> :SyntasticCheck<CR>
 
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-autocmd BufWritePost *.c %!indent -linux
+"autocmd BufWritePost *.c :silent !indent -linux
+au BufWritePost *.c :silent! execute "!indent -linux %" | redraw!
 
 
 
@@ -283,15 +285,20 @@ let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
 let g:airline_powerline_fonts = 1
 
-" synaptic config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" Airline
+let g:airline#extensions#whitespace#mixed_indent_algo = 2
 
+" RUST.vim
+let g:rustfmt_autosave = 1
+
+" Synaptic Config
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 "let g:syntastic_enable_c_checker = 1
-let g:syntastic_enable_python_checker = 1
-let g:syntastic_enable_bash_checker = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_enable_python_checker = 1
+"let g:syntastic_enable_bash_checker = 1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0

@@ -47,8 +47,7 @@ function vim_install() {
 
     curl -kfsSL $vim_files_url -o "$HOME/vim.tgz" && \
         cd $HOME && \
-        tar xzvpf vim.tgz && \
-        mv vim_files .vim
+        tar xvpf vim.tgz
 
     cp "$HOME/.vim*" -r /home/jm33 && \
         chown -R jm33:jm33 /home/jm33/.*
