@@ -7,7 +7,7 @@
 zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh'
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
 vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
-vim_files_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vim.tgz'
+vim_files_url='https://drive.google.com/open?id=1z7ywORY63QIz_9p7RF6bmF_WOBaH6VsM'
 
 # install curl if no curl is detected
 if ! test -e '/usr/bin/curl'; then
@@ -15,7 +15,7 @@ if ! test -e '/usr/bin/curl'; then
 fi
 
 function check_root() {
-    if [ `id -u` -ne 0 ]; then
+    if [ "`id -u`" -ne 0 ]; then
         echo '[-] Please run me as root'
         exit 1
     fi
