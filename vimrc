@@ -1,13 +1,20 @@
-"/"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""jm33_ng's VIMRC""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> Disclaimer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" This config file is simply a copy&paste&modify from other vim
-" users' vimrcs. Since I have deleted many code that I think use-
-" less to me, the file might be very basic... and buggy(maybe)
+" Tested on Kali Rolling 2017, works fine for me
+" Supported languages:
+"  - Go
+"  - Python3
+"  - Bash
+"  - C
+" This vimrc file might seem ugly, but it will work as long as
+" you have installed all dependencies, for more info please go
+" to https://github.com/w0rp/ale#standard-installation, you
+" will know what to do
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -24,17 +31,33 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+
+" General dev
+Plugin 'w0rp/ale' " general linter
+Plugin 'Valloric/YouCompleteMe' " general completer
+Plugin 'majutsushi/tagbar' " tag list
+Plugin 'scrooloose/nerdtree' " file explorer
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'tomtom/tcomment_vim'
+
+" Languages
 Plugin 'fatih/vim-go'
 Plugin 'rust-lang/rust.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'PProvost/vim-ps1'
+
+" Appearance
 Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'honza/vim-snippets'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'PProvost/vim-ps1'
-Plugin 'scrooloose/nerdtree'
+
+" deoplete
+"Plugin 'Shougo/deoplete.nvim'
+"Plugin 'roxma/nvim-yarp'
+"Plugin 'roxma/vim-hug-neovim-rpc'
+
+" Not used anymore
+"Plugin 'honza/vim-snippets'
+"Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'vim-syntastic/syntastic'
 "Plugin 'weekmonster/gofmt.vim'
 "Plugin 'terryma/vim-multiple-cursors'
@@ -58,18 +81,6 @@ filetype plugin indent on    " required
 " Enable filetype plugins
 
 " filetype plugin indent on
-
-" YCM conf
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-set completeopt-=preview
-let g:ycm_add_preview_to_completeopt = 0
-" Hail Py3
-let g:ycm_python_binary_path = 'python3'
 
 
 
@@ -124,7 +135,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 "autocmd BufWritePost *.c :silent !indent -linux
 au BufWritePost *.c :silent! execute "!indent -linux %" | redraw!
-
+au bufenter *.c :silent! call airline#extensions#whitespace#disable()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -149,7 +160,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -210,6 +221,8 @@ catch
     colorscheme mango
 endtry
 
+let g:rehash256 = 1
+let g:molokai_original = 1
 set background=dark
 set t_Co=256
 let base16colorspace=256
@@ -279,17 +292,63 @@ set laststatus=2
 " Height of the command bar
 set cmdheight=1
 
+
+
+
+""""""""""""""""""""""""""""""
+" ==>> Plugins
+""""""""""""""""""""""""""""""
+
+
+" YCM conf
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
+" Hail Py3
+let g:ycm_python_binary_path = 'python3'
+
+
+" ALE linters
+let g:airline#extensions#ale#enabled = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_lint_delay = 500
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" if linter got annoying, you can the frq set to normal
+"let g:ale_lint_on_text_changed = 'normal'
+
+
 " Vim-Airline Configuration
 let g:airline#extensions#tabline#enabled = 1
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
 let g:airline_powerline_fonts = 1
-
-" Airline
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
+let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php']
 
-" RUST.vim
+" rust.vim
 let g:rustfmt_autosave = 1
+
+" vim-go
+" since we have ALE enabled, vim-go doesn't have to run lint here
+"let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+
+" Tagbar
+nmap <C-b> :TagbarToggle<CR>
 
 " Synaptic Config
 "set statusline+=%#warningmsg#
