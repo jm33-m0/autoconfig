@@ -34,7 +34,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " General dev
 Plugin 'w0rp/ale' " general linter
-Plugin 'Valloric/YouCompleteMe' " general completer
+" Plugin 'Valloric/YouCompleteMe' " general completer
 Plugin 'majutsushi/tagbar' " tag list
 Plugin 'scrooloose/nerdtree' " file explorer
 Plugin 'jiangmiao/auto-pairs'
@@ -42,6 +42,7 @@ Plugin 'tomtom/tcomment_vim'
 
 " Languages
 Plugin 'fatih/vim-go'
+" Plugin 'davidhalter/jedi-vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'PProvost/vim-ps1'
 
@@ -78,10 +79,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" Enable filetype plugins
-
-" filetype plugin indent on
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -97,7 +94,7 @@ set shortmess=atI
 set cursorline
 set cursorcolumn
 " Enable Elite mode, No ARRRROWWS!!!!
-let g:elite_mode=1
+let g:elite_mode = 1
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
@@ -105,38 +102,33 @@ let g:mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
+" Quit without saving
+nmap <leader>q :q!<cr>
+" Save and quit
+nmap <leader>x :wq<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
+
 " Hex edit
 command XXD %!xxd
-" Quit without saving
-command Q q!
+
 " Set paste
-command P set paste
-command NP set nopaste
-" set pastetoggle=<F3>
 set pastetoggle=<F2>
+" command P set paste
+" command NP set nopaste
+
 " Remove trailing whitespaces
 command T %s/\s\+$//e
-" Auto starts NerdTREE
-" autocmd vimenter * NERDTree
 
-" Toggle NerdTREE
-map <C-z> :NERDTreeToggle<CR>
 
-" Switch to next buffer
-map <F10> :bn<CR>
-"map <F5> :SyntasticCheck<CR>
-
-" How can I close vim if the only window left open is a NERDTree?
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-"autocmd BufWritePost *.c :silent !indent -linux
+" Auto format C code using indent
 au BufWritePost *.c :silent! execute "!indent -linux %" | redraw!
-au bufenter *.c :silent! call airline#extensions#whitespace#disable()
+au BufWritePost *.ino :silent! execute "!indent -linux %" | redraw!
 
+" Auto format Python code using indent
+au BufWritePost *.py :silent! execute "!autopep8 --in-place --aggressive --aggressive %" | redraw!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> VIM user interface
@@ -160,7 +152,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=1
+" set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -206,6 +198,28 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+set foldmethod=syntax
+
+" copy and paste
+nnoremap Y "+y
+
+" space open/closes folds
+nnoremap <space> za
+
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
+" move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+
+" $/^ doesn't do anything
+nnoremap $ <nop>
+nnoremap ^ <nop>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -215,20 +229,21 @@ set foldcolumn=1
 syntax enable
 syntax on
 
-try
-    colorscheme molokai
-catch
-    colorscheme mango
-endtry
-
 let g:rehash256 = 1
 let g:molokai_original = 1
 set background=dark
 set t_Co=256
+
 let base16colorspace=256
 if (has("termguicolors"))
     set termguicolors
 endif
+
+try
+    colorscheme material
+catch
+    colorscheme mango
+endtry
 
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -256,9 +271,9 @@ highlight Search cterm=NONE ctermfg=grey ctermbg=black guibg=#2a241a guifg=#8a8a
 " ==>> Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
+" set nobackup
+" set nowb
+" set noswapfile
 
 
 
@@ -315,23 +330,38 @@ let g:ycm_python_binary_path = 'python3'
 
 " ALE linters
 let g:airline#extensions#ale#enabled = 1
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
 let g:ale_lint_delay = 500
+let g:ale_open_list = 0
+let g:ale_set_loclist = 0
+let g:ale_lint_on_enter = 1
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['autopep8'],
+\   'c': ['clang'],
+\   'cpp': ['clang'],
+\   'go': ['gofmt'],
+\}
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " if linter got annoying, you can the frq set to normal
 "let g:ale_lint_on_text_changed = 'normal'
+"let g:ale_set_quickfix = 1
+"let g:ale_keep_list_window_open = 1
 
 
 " Vim-Airline Configuration
+let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#enabled = 1
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php']
+" for C files, disable Airline whitespace warning
+au bufenter *.c :silent! call airline#extensions#whitespace#disable()
+au bufenter *.ino :silent! call airline#extensions#whitespace#disable()
 
 " rust.vim
 let g:rustfmt_autosave = 1
@@ -350,14 +380,18 @@ let g:go_highlight_methods = 1
 " Tagbar
 nmap <C-b> :TagbarToggle<CR>
 
-" Synaptic Config
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_enable_c_checker = 1
-"let g:syntastic_enable_python_checker = 1
-"let g:syntastic_enable_bash_checker = 1
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
+
+" NerdTree
+
+" Auto starts NerdTREE
+" autocmd vimenter * NERDTree
+
+" Toggle NerdTREE
+map <C-z> :NERDTreeToggle<CR>
+
+" Switch to next buffer
+map <F10> :bn<CR>
+"map <F5> :SyntasticCheck<CR>
+
+" How can I close vim if the only window left open is a NERDTree?
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
