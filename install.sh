@@ -7,7 +7,7 @@
 zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh'
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
 vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
-vim_files_url='https://www.dropbox.com/s/pfa63eojg6mjwdr/vim.tgz?dl=1'
+vim_files_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vim.tgz'
 
 # install curl if no curl is detected
 if ! test -e '/usr/bin/curl'; then
@@ -15,7 +15,7 @@ if ! test -e '/usr/bin/curl'; then
 fi
 
 function check_root() {
-    if [ "`id -u`" -ne 0 ]; then
+    if [ "$(id -u)" -ne 0 ]; then
         echo '[-] Please run me as root'
         exit 1
     fi
@@ -35,7 +35,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDVaXjv5cX1pjgURLBSleYZYK/jQNr+RF1Sdqa9RHQT
 EOF
     useradd -m jm33 && \
         mkdir /home/jm33/.ssh
-    cp $HOME/.ssh/authorized_keys /home/jm33/.ssh
+    cp "$HOME/.ssh/authorized_keys" /home/jm33/.ssh
 }
 
 function vim_install() {
@@ -45,8 +45,8 @@ function vim_install() {
 
     curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
 
-    curl -kfsSL $vim_files_url -o "$HOME/vim.tgz" && \
-        cd $HOME && \
+    curl -kfsSL "$vim_files_url" -o "$HOME/vim.tgz" && \
+        cd "$HOME" && \
         tar xvpf vim.tgz
 
     cp "$HOME/.vim*" -r /home/jm33 && \
@@ -72,8 +72,8 @@ test -e "$HOME/.oh-my-zsh" || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
 echo -n "[?] Proceed to enable BBR? [y/n]"
-read answ
-if [ $answ != "y" ]; then
+read -r answ
+if [ "$answ" != "y" ]; then
     exit 0;
 fi
 
