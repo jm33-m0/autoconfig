@@ -1,144 +1,139 @@
-main() {
-  # Use colors, but only if connected to a terminal, and that terminal
-  # supports them.
-  if which tput >/dev/null 2>&1; then
-      ncolors=$(tput colors)
-  fi
-  if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-    RED="$(tput setaf 1)"
-    GREEN="$(tput setaf 2)"
-    YELLOW="$(tput setaf 3)"
-    BLUE="$(tput setaf 4)"
-    BOLD="$(tput bold)"
-    NORMAL="$(tput sgr0)"
-  else
-    RED=""
-    GREEN=""
-    YELLOW=""
-    BLUE=""
-    BOLD=""
-    NORMAL=""
-  fi
+# Check for updates on initial load...
+if [ "$DISABLE_AUTO_UPDATE" != "true" ]; then
+  env ZSH=$ZSH DISABLE_UPDATE_PROMPT=$DISABLE_UPDATE_PROMPT zsh -f $ZSH/tools/check_for_upgrade.sh
+fi
 
-  # Only enable exit-on-error after the non-critical colorization stuff,
-  # which may fail on systems lacking tput or terminfo
-  set -e
+# Initializes Oh My Zsh
 
-  CHECK_ZSH_INSTALLED=$(grep /zsh$ /etc/shells | wc -l)
-  if [ ! $CHECK_ZSH_INSTALLED -ge 1 ]; then
-    printf "${YELLOW}Zsh is not installed!${NORMAL} Please install zsh first!\n"
-    exit
-  fi
-  unset CHECK_ZSH_INSTALLED
+# add a function path
+fpath=($ZSH/functions $ZSH/completions $fpath)
 
-  if [ ! -n "$ZSH" ]; then
-    ZSH=~/.oh-my-zsh
-  fi
+# Load all stock functions (from $fpath files) called below.
+autoload -U compaudit compinit
 
-  if [ -d "$ZSH" ]; then
-    printf "${YELLOW}You already have Oh My Zsh installed.${NORMAL}\n"
-    printf "You'll need to remove $ZSH if you want to re-install.\n"
-    exit
-  fi
+: ${ZSH_DISABLE_COMPFIX:=true}
 
-  # Prevent the cloned repository from having insecure permissions. Failing to do
-  # so causes compinit() calls to fail with "command not found: compdef" errors
-  # for users with insecure umasks (e.g., "002", allowing group writability). Note
-  # that this will be ignored under Cygwin by default, as Windows ACLs take
-  # precedence over umasks except for filesystems mounted with option "noacl".
-  umask g-w,o-w
+# Set ZSH_CUSTOM to the path where your custom config files
+# and plugins exists, or else we will use the default custom/
+if [[ -z "$ZSH_CUSTOM" ]]; then
+    ZSH_CUSTOM="$ZSH/custom"
+fi
 
-  printf "${BLUE}Cloning Oh My Zsh...${NORMAL}\n"
-  hash git >/dev/null 2>&1 || {
-    echo "Error: git is not installed"
-    exit 1
-  }
-  # The Windows (MSYS) Git is not compatible with normal use on cygwin
-  if [ "$OSTYPE" = cygwin ]; then
-    if git --version | grep msysgit > /dev/null; then
-      echo "Error: Windows/MSYS Git is not supported on Cygwin"
-      echo "Error: Make sure the Cygwin git package is installed and is first on the path"
-      exit 1
-    fi
-  fi
-  env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH || {
-    printf "Error: git clone of oh-my-zsh repo failed\n"
-    exit 1
-  }
+# Set ZSH_CACHE_DIR to the path where cache files should be created
+# or else we will use the default cache/
+if [[ -z "$ZSH_CACHE_DIR" ]]; then
+  ZSH_CACHE_DIR="$ZSH/cache"
+fi
 
 
-  printf "${BLUE}Looking for an existing zsh config...${NORMAL}\n"
-  if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
-    printf "${YELLOW}Found ~/.zshrc.${NORMAL} ${GREEN}Backing up to ~/.zshrc.pre-oh-my-zsh${NORMAL}\n";
-    mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh;
-  fi
+# Load all of the config files in ~/oh-my-zsh that end in .zsh
+# TIP: Add files you don't want in git to .gitignore
+for config_file ($ZSH/lib/*.zsh); do
+  custom_config_file="${ZSH_CUSTOM}/lib/${config_file:t}"
+  [ -f "${custom_config_file}" ] && config_file=${custom_config_file}
+  source $config_file
+done
 
-  printf "${BLUE}Using the Oh My Zsh template file and adding it to ~/.zshrc${NORMAL}\n"
-  cp $ZSH/templates/zshrc.zsh-template ~/.zshrc
 
-
-# sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
-#
-# echo "
-# export TERM=xterm
-# export GOPATH=/projects/golang
-# export EDITOR=vim
-# alias re='reboot'
-# alias off='poweroff'
-# alias c='reset -Q'
-# alias x='clear'
-# alias la='ls -la'
-# alias q='exit'
-# alias m='echo 1 > /proc/sys/vm/drop_caches'
-# alias ref='apt-get update'
-# alias up='apt-get update && apt-get dist-upgrade -y'
-# alias i='apt-get install'
-# alias cln='apt-get autoremove && apt-get autoclean'
-# " >> ~/.zshrc
-
-  sed "/^export ZSH=/ c\\
-  export ZSH=$ZSH
-  " ~/.zshrc > ~/.zshrc-omztemp
-  mv -f ~/.zshrc-omztemp ~/.zshrc
-
-  # If this user's login shell is not already "zsh", attempt to switch.
-  TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
-  if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
-    # If this platform provides a "chsh" command (not Cygwin), do it, man!
-    if hash chsh >/dev/null 2>&1; then
-      printf "${BLUE}Time to change your default shell to zsh!${NORMAL}\n"
-      chsh -s $(grep /zsh$ /etc/shells | tail -1)
-    # Else, suggest the user do so manually.
-    else
-      printf "I can't change your shell automatically because this system does not have chsh.\n"
-      printf "${BLUE}Please manually change your default shell to zsh!${NORMAL}\n"
-    fi
-  fi
-
-  printf "${GREEN}"
-  echo '         __                                     __   '
-  echo '  ____  / /_     ____ ___  __  __   ____  _____/ /_  '
-  echo ' / __ \/ __ \   / __ `__ \/ / / /  /_  / / ___/ __ \ '
-  echo '/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / / '
-  echo '\____/_/ /_/  /_/ /_/ /_/\__, /    /___/____/_/ /_/  '
-  echo '                        /____/                       ....is now installed!'
-  echo ''
-  echo ''
-  echo 'Please look over the ~/.zshrc file to select plugins, themes, and options.'
-  echo ''
-  echo 'p.s. Follow us at https://twitter.com/ohmyzsh.'
-  echo ''
-  echo 'p.p.s. Get stickers and t-shirts at http://shop.planetargon.com.'
-  echo ''
-  printf "${NORMAL}"
-  env zsh
+is_plugin() {
+  local base_dir=$1
+  local name=$2
+  test -f $base_dir/plugins/$name/$name.plugin.zsh \
+    || test -f $base_dir/plugins/$name/_$name
 }
+# Add all defined plugins to fpath. This must be done
+# before running compinit.
+for plugin ($plugins); do
+  if is_plugin $ZSH_CUSTOM $plugin; then
+    fpath=($ZSH_CUSTOM/plugins/$plugin $fpath)
+  elif is_plugin $ZSH $plugin; then
+    fpath=($ZSH/plugins/$plugin $fpath)
+  fi
+done
 
-unset $ZSH
-main
+# Figure out the SHORT hostname
+if [[ "$OSTYPE" = darwin* ]]; then
+  # macOS's $HOST changes with dhcp, etc. Use ComputerName if possible.
+  SHORT_HOST=$(scutil --get ComputerName 2>/dev/null) || SHORT_HOST=${HOST/.*/}
+else
+  SHORT_HOST=${HOST/.*/}
+fi
 
-zshrc_url="https://raw.githubusercontent.com/jm33-m0/autoconfig/master/zshrc"
-tmuxconf_url="https://raw.githubusercontent.com/jm33-m0/autoconfig/master/tmux.conf"
+# Save the location of the current completion dump file.
+if [ -z "$ZSH_COMPDUMP" ]; then
+  ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+fi
 
-curl -fsSL "$zshrc_url" -o ~/.zshrc
-curl -fsSL "$tmuxconf_url" -o ~/.tmux.conf
+if [[ $ZSH_DISABLE_COMPFIX != true ]]; then
+  # If completion insecurities exist, warn the user without enabling completions.
+  if ! compaudit &>/dev/null; then
+    # This function resides in the "lib/compfix.zsh" script sourced above.
+    handle_completion_insecurities
+  # Else, enable and cache completions to the desired file.
+  else
+    compinit -d "${ZSH_COMPDUMP}"
+  fi
+else
+  compinit -i -d "${ZSH_COMPDUMP}"
+fi
+
+# Load all of the plugins that were defined in ~/.zshrc
+for plugin ($plugins); do
+  if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then
+    source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh
+  elif [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then
+    source $ZSH/plugins/$plugin/$plugin.plugin.zsh
+  fi
+done
+
+# Load all of your custom configurations from custom/
+for config_file ($ZSH_CUSTOM/*.zsh(N)); do
+  source $config_file
+done
+unset config_file
+
+# Load the theme
+if [[ "$ZSH_THEME" == "random" ]]; then
+  if [[ "${(t)ZSH_THEME_RANDOM_CANDIDATES}" = "array" ]] && [[ "${#ZSH_THEME_RANDOM_CANDIDATES[@]}" -gt 0 ]]; then
+    themes=($ZSH/themes/${^ZSH_THEME_RANDOM_CANDIDATES}.zsh-theme)
+  else
+    themes=($ZSH/themes/*zsh-theme)
+  fi
+  N=${#themes[@]}
+  ((N=(RANDOM%N)+1))
+  RANDOM_THEME=${themes[$N]}
+  source "$RANDOM_THEME"
+  echo "[oh-my-zsh] Random theme '$RANDOM_THEME' loaded..."
+else
+  if [ ! "$ZSH_THEME" = ""  ]; then
+    if [ -f "$ZSH_CUSTOM/$ZSH_THEME.zsh-theme" ]; then
+      source "$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"
+    elif [ -f "$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme" ]; then
+      source "$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"
+    else
+      source "$ZSH/themes/$ZSH_THEME.zsh-theme"
+    fi
+  fi
+fi
+
+echo "
+export TERM=xterm
+export GOPATH="/projects/golang"
+export PATH="$PATH:$GOPATH/bin:/home/jm33/.cargo/bin"
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+alias re='systemctl reboot'
+alias off='systemctl poweroff'
+alias c='reset -Q'
+alias x='clear'
+alias la='ls -la'
+alias q='exit'
+alias m='echo 1 > /proc/sys/vm/drop_caches'
+alias ref='apt-get update'
+alias up='apt-get update && apt-get dist-upgrade -y'
+alias i='apt-get install'
+alias cln='apt-get autoremove && apt-get autoclean'
+alias publish='bash /home/jm33/sh/publish.sh'
+alias rm='rm -i'
+alias tmux='tmux -2'
+" >> ~/.zshrc
