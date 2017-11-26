@@ -271,9 +271,9 @@ highlight Search cterm=NONE ctermfg=grey ctermbg=black guibg=#2a241a guifg=#8a8a
 " ==>> Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
-" set nobackup
-" set nowb
-" set noswapfile
+set nobackup
+set nowb
+set noswapfile
 
 
 
@@ -337,10 +337,10 @@ let g:ale_lint_on_enter = 1
 
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'python': ['autopep8'],
 \   'c': ['clang'],
+\   'python': ['pylint'],
 \   'cpp': ['clang'],
-\   'go': ['gofmt'],
+\   'go': ['golint'],
 \}
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)

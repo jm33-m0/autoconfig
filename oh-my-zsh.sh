@@ -77,24 +77,24 @@ main() {
   cp $ZSH/templates/zshrc.zsh-template ~/.zshrc
 
 
-sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
-
-echo "
-export TERM=xterm
-export GOPATH=/projects/golang
-export EDITOR=vim
-alias re='reboot'
-alias off='poweroff'
-alias c='reset -Q'
-alias x='clear'
-alias la='ls -la'
-alias q='exit'
-alias m='echo 1 > /proc/sys/vm/drop_caches'
-alias ref='apt-get update'
-alias up='apt-get update && apt-get dist-upgrade -y'
-alias i='apt-get install'
-alias cln='apt-get autoremove && apt-get autoclean'
-" >> ~/.zshrc
+# sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
+#
+# echo "
+# export TERM=xterm
+# export GOPATH=/projects/golang
+# export EDITOR=vim
+# alias re='reboot'
+# alias off='poweroff'
+# alias c='reset -Q'
+# alias x='clear'
+# alias la='ls -la'
+# alias q='exit'
+# alias m='echo 1 > /proc/sys/vm/drop_caches'
+# alias ref='apt-get update'
+# alias up='apt-get update && apt-get dist-upgrade -y'
+# alias i='apt-get install'
+# alias cln='apt-get autoremove && apt-get autoclean'
+# " >> ~/.zshrc
 
   sed "/^export ZSH=/ c\\
   export ZSH=$ZSH
@@ -136,3 +136,9 @@ alias cln='apt-get autoremove && apt-get autoclean'
 
 unset $ZSH
 main
+
+zshrc_url="https://raw.githubusercontent.com/jm33-m0/autoconfig/master/zshrc"
+tmuxconf_url="https://raw.githubusercontent.com/jm33-m0/autoconfig/master/tmux.conf"
+
+curl -fsSL "$zshrc_url" -o ~/.zshrc
+curl -fsSL "$tmuxconf_url" -o ~/.tmux.conf
