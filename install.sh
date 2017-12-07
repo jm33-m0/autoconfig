@@ -60,9 +60,7 @@ function install_packages() {
     echo '[*] Installing daily packages'
     apt-get update && \
         apt-get dist-upgrade -y && \
-        apt-get install -y tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh
-
-    go get -v git.torproject.org/pluggable-transports/obfs4.git/obfs4proxy
+        apt-get install -y tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy
 }
 
 install_packages
