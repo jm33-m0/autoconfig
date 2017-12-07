@@ -7,7 +7,7 @@
 zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh'
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
 vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
-vim_files_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vim.tgz'
+vim_files_url='https://la.jm33.me/vim.tgz'
 
 # install curl if no curl is detected
 if ! test -e '/usr/bin/curl'; then
