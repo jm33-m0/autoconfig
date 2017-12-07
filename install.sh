@@ -40,9 +40,6 @@ EOF
 
 function vim_install() {
     echo '[*] Installing vim files'
-    which vim || apt-get update && \
-        apt-get install vim -y
-
     curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
 
     curl -kfsSL "$vim_files_url" -o "$HOME/vim.tgz" && \
@@ -58,10 +55,14 @@ function zsh_install() {
 
 function install_packages() {
     check_root
+    mkdir -p /projects/golang
+
     echo '[*] Installing daily packages'
     apt-get update && \
-        apt-get install -y nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang gocode git zsh && \
-        apt-get dist-upgrade -y
+        apt-get dist-upgrade -y && \
+        apt-get install -y tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh
+
+    go get -v git.torproject.org/pluggable-transports/obfs4.git/obfs4proxy
 }
 
 install_packages
@@ -70,10 +71,15 @@ test -e "$HOME/.oh-my-zsh" || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
 chown -R jm33:jm33 /home/jm33/.*
-chown -R jm33:jm33 /home/jm33/*
+chown -R jm33:jm33 /projects/golang
 
-sudo -u jm33 unset ZSH
-sudo -u jm33 curl $zsh_url | bash
+echo "[*] Enabling BBR..."
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+sysctl net.ipv4.tcp_available_congestion_control
+sysctl net.ipv4.tcp_congestion_control
+lsmod | grep bbr
 
 # echo -n "[?] Proceed to enable BBR? [y/n] "
 # read -r answ
