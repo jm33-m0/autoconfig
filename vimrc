@@ -127,7 +127,7 @@ command T %s/\s\+$//e
 au BufWritePost *.c :silent! execute "!indent -linux %" | redraw!
 au BufWritePost *.ino :silent! execute "!indent -linux %" | redraw!
 
-" Auto format Python code using indent
+" Auto format Python code using autopep8
 au BufWritePost *.py :silent! execute "!autopep8 --in-place --aggressive --aggressive %" | redraw!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -240,7 +240,7 @@ if (has("termguicolors"))
 endif
 
 try
-    colorscheme material
+    colorscheme molokai
 catch
     colorscheme mango
 endtry
@@ -352,7 +352,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 
 " Vim-Airline Configuration
-let g:airline_theme = 'murmur'
+let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
@@ -362,6 +362,7 @@ let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', '
 " for C files, disable Airline whitespace warning
 au bufenter *.c :silent! call airline#extensions#whitespace#disable()
 au bufenter *.ino :silent! call airline#extensions#whitespace#disable()
+au bufenter *.md :silent! call airline#extensions#whitespace#disable()
 
 " rust.vim
 let g:rustfmt_autosave = 1

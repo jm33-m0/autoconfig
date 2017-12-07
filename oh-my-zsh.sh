@@ -119,7 +119,7 @@ echo "
 export TERM=xterm
 export GOPATH="/projects/golang"
 export PATH="$PATH:$GOPATH/bin:/home/jm33/.cargo/bin"
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+# export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 alias re='systemctl reboot'
 alias off='systemctl poweroff'
@@ -136,3 +136,7 @@ alias publish='bash /home/jm33/sh/publish.sh'
 alias rm='rm -i'
 alias tmux='tmux -2'
 " >> ~/.zshrc
+
+echo "set-option -g default-shell /bin/zsh
+set -g default-terminal "xterm-256color"
+set -g mouse on" > ~/.tmux.conf

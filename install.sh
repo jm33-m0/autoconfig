@@ -49,8 +49,7 @@ function vim_install() {
         cd "$HOME" && \
         tar xvpf vim.tgz
 
-    cp "$HOME/.vim*" -r /home/jm33 && \
-        chown -R jm33:jm33 /home/jm33/.*
+    cp "$HOME/.vim*" -r /home/jm33
 }
 
 function zsh_install() {
@@ -71,7 +70,13 @@ grep jm33 "$HOME/.vimrc" || vim_install
 test -e "$HOME/.oh-my-zsh" || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
-echo -n "[?] Proceed to enable BBR? [y/n] "
+chown -R jm33:jm33 /home/jm33/.*
+chown -R jm33:jm33 /home/jm33/*
+
+sudo -u jm33 unset ZSH
+sudo -u jm33 curl $zsh_url | bash
+
+# echo -n "[?] Proceed to enable BBR? [y/n] "
 # read -r answ
 # if [ "$answ" = "y" ]; then
 #     wget --no-check-certificate -qO 'BBR.sh' 'https://moeclub.org/attachment/LinuxShell/BBR.sh' && chmod a+x BBR.sh && bash BBR.sh -f
