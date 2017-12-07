@@ -35,7 +35,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDVaXjv5cX1pjgURLBSleYZYK/jQNr+RF1Sdqa9RHQT
 EOF
     useradd -m jm33 && \
         mkdir /home/jm33/.ssh
-    cp "$HOME/.ssh/authorized_keys" /home/jm33/.ssh
+    cp ~/.ssh/authorized_keys /home/jm33/.ssh
 }
 
 function vim_install() {
@@ -46,10 +46,9 @@ function vim_install() {
     curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
 
     curl -kfsSL "$vim_files_url" -o "$HOME/vim.tgz" && \
-        cd "$HOME" && \
-        tar xvpf vim.tgz
-
-    cp "$HOME/.vim*" -r /home/jm33
+        cd ~ && \
+        tar xvpf vim.tgz && \
+        cp ~/.vim* -r /home/jm33
 }
 
 function zsh_install() {
