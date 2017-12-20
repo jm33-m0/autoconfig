@@ -6,7 +6,7 @@
 # urls of target scripts and config files
 zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh'
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
-vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
+# vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
 vim_files_url='https://la.jm33.me/vim.tgz'
 
 # install curl if no curl is detected
@@ -40,12 +40,11 @@ EOF
 
 function vim_install() {
     echo '[*] Installing vim files'
-    curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
+    # curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
 
     curl -kfsSL "$vim_files_url" -o "$HOME/vim.tgz" && \
         cd ~ && \
-        tar xvpf vim.tgz && \
-        cp ~/.vim* -r /home/jm33
+        tar xvpf vim.tgz
 }
 
 function zsh_install() {
@@ -64,8 +63,8 @@ function install_packages() {
 }
 
 install_packages
-grep jm33 "$HOME/.vimrc" || vim_install
-test -e "$HOME/.oh-my-zsh" || zsh_install
+grep "jm33" ~/.vimrc || vim_install
+test -e ~/.oh-my-zsh || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
 chown -R jm33:jm33 /home/jm33/.*

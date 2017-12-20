@@ -118,14 +118,15 @@ main
 echo "
 export TERM=xterm
 export GOPATH="/projects/golang"
-export PATH="$PATH:$GOPATH/bin:/home/jm33/.cargo/bin"
+export PATH="$PATH:$GOPATH/bin"
 # export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 alias re='systemctl reboot'
 alias off='systemctl poweroff'
-alias c='reset -Q'
+alias c='clear'
 alias x='clear'
-alias la='ls -la'
+alias l='ls -lha'
+alias ll='ls -lh'
 alias q='exit'
 alias m='echo 1 > /proc/sys/vm/drop_caches'
 alias ref='apt-get update'
