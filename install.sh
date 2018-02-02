@@ -6,13 +6,11 @@
 # urls of target scripts and config files
 zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh'
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
-# vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
+vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
 vim_files_url='https://la.jm33.me/vim.tgz'
 
 # install curl if no curl is detected
-if ! test -e '/usr/bin/curl'; then
-    apt-get update && apt-get install curl -y
-fi
+apt-get update && apt-get install curl -y
 
 function check_root() {
     if [ "$(id -u)" -ne 0 ]; then
@@ -40,7 +38,7 @@ EOF
 
 function vim_install() {
     echo '[*] Installing vim files'
-    # curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
+    curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
 
     curl -kfsSL "$vim_files_url" -o "$HOME/vim.tgz" && \
         cd ~ && \
@@ -74,12 +72,7 @@ echo "[*] Enabling BBR..."
 echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 sysctl -p
+echo "[*] Checking BBR..."
 sysctl net.ipv4.tcp_available_congestion_control
 sysctl net.ipv4.tcp_congestion_control
 lsmod | grep bbr
-
-# echo -n "[?] Proceed to enable BBR? [y/n] "
-# read -r answ
-# if [ "$answ" = "y" ]; then
-#     wget --no-check-certificate -qO 'BBR.sh' 'https://moeclub.org/attachment/LinuxShell/BBR.sh' && chmod a+x BBR.sh && bash BBR.sh -f
-# fi

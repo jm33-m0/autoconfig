@@ -34,7 +34,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " General dev
 Plugin 'w0rp/ale' " general linter
-" Plugin 'Valloric/YouCompleteMe' " general completer
+Plugin 'Valloric/YouCompleteMe' " general completer
 Plugin 'majutsushi/tagbar' " tag list
 Plugin 'scrooloose/nerdtree' " file explorer
 Plugin 'jiangmiao/auto-pairs'
@@ -44,6 +44,7 @@ Plugin 'tomtom/tcomment_vim'
 Plugin 'fatih/vim-go'
 " Plugin 'davidhalter/jedi-vim'
 Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
 Plugin 'PProvost/vim-ps1'
 
 " Appearance
@@ -366,6 +367,10 @@ au bufenter *.md :silent! call airline#extensions#whitespace#disable()
 
 " rust.vim
 let g:rustfmt_autosave = 1
+
+" rust racer
+set hidden
+let g:racer_cmd = "~/.cargo/bin/racer"
 
 " vim-go
 " since we have ALE enabled, vim-go doesn't have to run lint here
