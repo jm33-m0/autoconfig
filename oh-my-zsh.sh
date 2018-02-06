@@ -80,6 +80,33 @@ main() {
   " ~/.zshrc > ~/.zshrc-omztemp
   mv -f ~/.zshrc-omztemp ~/.zshrc
 
+  sed -i "s/robbyrussell/ys/g" ~/.zshrc
+
+  echo "
+export TERM=xterm
+export GOPATH="/projects/golang"
+export PATH="$PATH:/projects/golang/bin"
+
+alias re='systemctl reboot'
+alias off='systemctl poweroff'
+alias c='clear'
+alias x='reset'
+alias l='ls -lha'
+alias ll='ls -lh'
+alias q='exit'
+alias m="echo 'echo 1 > /proc/sys/vm/drop_caches'|sudo bash"
+alias ref='sudo apt-get update'
+alias up='sudo apt-get update && sudo apt-get dist-upgrade -y'
+alias i='sudo apt-get install'
+alias cln='sudo apt-get autoremove && sudo apt-get autoclean'
+alias publish='bash /home/jm33/sh/publish.sh'
+alias rm='rm -i'
+alias tmux='tmux -2'" >> ~/.zshrc
+
+  echo "set-option -g default-shell /bin/zsh
+set -g default-terminal "xterm-256color"
+set -g mouse on" > ~/.tmux.conf
+
   # If this user's login shell is not already "zsh", attempt to switch.
   TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
   if [ "$TEST_CURRENT_SHELL" != "zsh" ]; then
@@ -114,30 +141,3 @@ main() {
 }
 
 main
-
-echo "
-export TERM=xterm
-export GOPATH="/projects/golang"
-export PATH="$PATH:/projects/golang/bin"
-# export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-
-alias re='systemctl reboot'
-alias off='systemctl poweroff'
-alias c='clear'
-alias x='clear'
-alias l='ls -lha'
-alias ll='ls -lh'
-alias q='exit'
-alias m='echo 1 > /proc/sys/vm/drop_caches'
-alias ref='apt-get update'
-alias up='apt-get update && apt-get dist-upgrade -y'
-alias i='apt-get install'
-alias cln='apt-get autoremove && apt-get autoclean'
-alias publish='bash /home/jm33/sh/publish.sh'
-alias rm='rm -i'
-alias tmux='tmux -2'
-" >> ~/.zshrc
-
-echo "set-option -g default-shell /bin/zsh
-set -g default-terminal "xterm-256color"
-set -g mouse on" > ~/.tmux.conf
