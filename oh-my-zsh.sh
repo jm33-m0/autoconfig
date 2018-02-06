@@ -94,7 +94,6 @@ alias x='reset'
 alias l='ls -lha'
 alias ll='ls -lh'
 alias q='exit'
-alias m="echo 'echo 1 > /proc/sys/vm/drop_caches'|sudo bash"
 alias ref='sudo apt-get update'
 alias up='sudo apt-get update && sudo apt-get dist-upgrade -y'
 alias i='sudo apt-get install'
@@ -102,6 +101,8 @@ alias cln='sudo apt-get autoremove && sudo apt-get autoclean'
 alias publish='bash /home/jm33/sh/publish.sh'
 alias rm='rm -i'
 alias tmux='tmux -2'" >> ~/.zshrc
+
+printf "alias m=\"sudo sh -c %s\"\n" "'echo 1 > /proc/sys/vm/drop_caches'" >> ~/.zshrc
 
   echo "set-option -g default-shell /bin/zsh
 set -g default-terminal "xterm-256color"
