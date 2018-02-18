@@ -5,11 +5,11 @@
 ### Install oh-my-zsh
 
 ```bash
-curl -k 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh' | bash
+wget 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh' -O - | bash
 ```
 
 ### Initialize Ubuntu 16.04+
 
 ```bash
-curl -k 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/install.sh' | bash
+wget 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/install.sh' -O - | bash
 ```
