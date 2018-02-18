@@ -39,10 +39,12 @@ Plugin 'majutsushi/tagbar' " tag list
 Plugin 'scrooloose/nerdtree' " file explorer
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'ervandew/supertab'
+Plugin 'SirVer/ultisnips'
 
 " Languages
 Plugin 'fatih/vim-go'
-" Plugin 'davidhalter/jedi-vim'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
 Plugin 'PProvost/vim-ps1'
@@ -375,6 +377,8 @@ let g:racer_cmd = "~/.cargo/bin/racer"
 " vim-go
 " since we have ALE enabled, vim-go doesn't have to run lint here
 "let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_gocode_autobuild = 1
+let g:go_gocode_unimported_packages = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
@@ -382,6 +386,16 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+set autowrite
+
+" jedi.vim
+let g:jedi#use_tabs_not_buffers = 1
+autocmd FileType python setlocal completeopt-=preview
+" disable ycm python
+let g:ycm_filetype_specific_completion_to_disable = {
+\ 'gitcommit': 1,
+\ 'python': 1
+\}
 
 " Tagbar
 nmap <C-b> :TagbarToggle<CR>
