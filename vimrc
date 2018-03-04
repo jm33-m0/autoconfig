@@ -136,7 +136,10 @@ au BufWritePost *.py :silent! execute "!autopep8 --in-place --aggressive --aggre
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nu
+" set nu
+set number relativenumber
+" set nonumber norelativenumber  " turn hybrid line numbers off
+" set !number !relativenumber    " toggle hybrid line numbers
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
