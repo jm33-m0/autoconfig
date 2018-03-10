@@ -41,13 +41,14 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
+Plugin 'tpope/vim-fugitive'
 
 " Languages
 Plugin 'fatih/vim-go'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'rust-lang/rust.vim'
-Plugin 'racer-rust/vim-racer'
 Plugin 'PProvost/vim-ps1'
+Plugin 'davidhalter/jedi-vim'
+" Plugin 'rust-lang/rust.vim'
+" Plugin 'racer-rust/vim-racer'
 
 " Appearance
 Plugin 'flazz/vim-colorschemes'
@@ -140,6 +141,9 @@ au BufWritePost *.py :silent! execute "!autopep8 --in-place --aggressive --aggre
 set number relativenumber
 " set nonumber norelativenumber  " turn hybrid line numbers off
 " set !number !relativenumber    " toggle hybrid line numbers
+
+" show invisible characters
+" set list
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -371,11 +375,11 @@ au bufenter *.ino :silent! call airline#extensions#whitespace#disable()
 au bufenter *.md :silent! call airline#extensions#whitespace#disable()
 
 " rust.vim
-let g:rustfmt_autosave = 1
+" let g:rustfmt_autosave = 1
 
 " rust racer
-set hidden
-let g:racer_cmd = "~/.cargo/bin/racer"
+" set hidden
+" let g:racer_cmd = "~/.cargo/bin/racer"
 
 " vim-go
 " since we have ALE enabled, vim-go doesn't have to run lint here
