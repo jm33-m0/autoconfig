@@ -40,7 +40,7 @@ function vim_install() {
     echo '[*] Installing vim files'
     curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
 
-    curl -kfsSL "$vim_files_url" -o "$HOME/vim.tgz" && \
+    curl -kfSL "$vim_files_url" -o "$HOME/vim.tgz" && \
         cd ~ && \
         tar xvpf vim.tgz
 }
