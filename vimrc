@@ -54,6 +54,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'yuttie/comfortable-motion.vim'
 
 " deoplete
 "Plugin 'Shougo/deoplete.nvim'
@@ -95,8 +96,8 @@ set autoread
 set shortmess=atI
 
 "Hightlight current line and column
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 " Enable Elite mode, No ARRRROWWS!!!!
 let g:elite_mode = 1
 " With a map leader it's possible to do extra key combinations
@@ -220,8 +221,8 @@ nnoremap Y "+y
 nnoremap <space> za
 
 " move vertically by visual line
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
 
 " move to beginning/end of line
 nnoremap B ^
@@ -249,11 +250,7 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-try
-    colorscheme molokai
-catch
-    colorscheme mango
-endtry
+colorscheme molokai
 
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -272,8 +269,9 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 highlight Pmenu ctermfg=7 ctermbg=234 guibg=#d0d0d0 guifg=#8a8a8a
-highlight CursorColumn ctermbg=234
 highlight Search cterm=NONE ctermfg=grey ctermbg=black guibg=#2a241a guifg=#8a8a8a
+"highlight CursorColumn ctermbg=234 guibg=#d0d0d0
+"highlight CursorLine ctermbg=234 guibg=#d0d0d0
 
 
 
@@ -398,11 +396,11 @@ set autowrite
 " jedi.vim
 let g:jedi#use_tabs_not_buffers = 1
 autocmd FileType python setlocal completeopt-=preview
-" disable ycm python
-let g:ycm_filetype_specific_completion_to_disable = {
-\ 'gitcommit': 1,
-\ 'python': 1
-\}
+" " disable ycm python
+" let g:ycm_filetype_specific_completion_to_disable = {
+" \ 'gitcommit': 1,
+" \ 'python': 1
+" \}
 
 " Tagbar
 nmap <C-b> :TagbarToggle<CR>
@@ -422,3 +420,10 @@ map <F10> :bn<CR>
 
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" vim smooth  scroll
+"
+" let g:comfortable_motion_scroll_down_key = "j"
+" let g:comfortable_motion_scroll_up_key = "k"
+" let g:comfortable_motion_friction = 80.0
+" let g:comfortable_motion_air_drag = 2.0
