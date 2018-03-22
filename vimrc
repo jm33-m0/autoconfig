@@ -135,6 +135,9 @@ au BufWritePost *.ino :silent! execute "!indent -linux %" | redraw!
 " Auto format Python code using autopep8
 au BufWritePost *.py :silent! execute "!autopep8 --in-place --aggressive --aggressive %" | redraw!
 
+" Auto format Lua code using luaformatter
+au BufWritePost *.lua :silent! execute "!/home/jm33/.luarocks/bin/luaformatter -a -s 4 %" | redraw!
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==>> VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -353,10 +356,10 @@ let g:ale_linters = {
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-" if linter got annoying, you can the frq set to normal
-"let g:ale_lint_on_text_changed = 'normal'
-"let g:ale_set_quickfix = 1
-"let g:ale_keep_list_window_open = 1
+" if linter got annoying, you can set the frq to normal
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_set_quickfix = 1
+" let g:ale_keep_list_window_open = 1
 
 
 " Vim-Airline Configuration
@@ -377,7 +380,7 @@ au bufenter *.md :silent! call airline#extensions#whitespace#disable()
 
 " rust racer
 " set hidden
-" let g:racer_cmd = "~/.cargo/bin/racer"
+" let g:racer_cmd = ~/.cargo/bin/racer
 
 " vim-go
 " since we have ALE enabled, vim-go doesn't have to run lint here
@@ -423,7 +426,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " vim smooth  scroll
 "
-" let g:comfortable_motion_scroll_down_key = "j"
-" let g:comfortable_motion_scroll_up_key = "k"
+" let g:comfortable_motion_scroll_down_key = j
+" let g:comfortable_motion_scroll_up_key = k
 " let g:comfortable_motion_friction = 80.0
 " let g:comfortable_motion_air_drag = 2.0
