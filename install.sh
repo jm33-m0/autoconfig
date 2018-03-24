@@ -2,11 +2,14 @@
 
 # by: jm33-ng
 # 2017-06-10
+# change log
+# 2018-03-24 - switch to spacevim
 
 # urls of target scripts and config files
 zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh'
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
 vimrc_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/vimrc'
+spacevim_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/init.vim'
 vim_files_url='https://la.jm33.me/vim.tgz'
 
 # install curl if no curl is detected
@@ -37,12 +40,15 @@ EOF
 }
 
 function vim_install() {
-    echo '[*] Installing vim files'
-    curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
+    echo '[*] Installing SpaceVim'
+    curl -sLf https://spacevim.org/install.sh | bash
 
-    curl -kfSL "$vim_files_url" -o "$HOME/vim.tgz" && \
-        cd ~ && \
-        tar xvpf vim.tgz
+    curl -sLf $spacevim_url
+    # curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
+
+#     curl -kfSL "$vim_files_url" -o "$HOME/vim.tgz" && \
+#         cd ~ && \
+#         tar xvpf vim.tgz
 }
 
 function zsh_install() {
