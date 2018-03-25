@@ -43,7 +43,7 @@ function vim_install() {
     echo '[*] Installing SpaceVim'
     curl -sLf https://spacevim.org/install.sh | bash
 
-    curl -sLf $spacevim_url
+    curl -sLf $spacevim_url -o "$HOME/.SpaceVim.d/init.vim"
     # curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
 
 #     curl -kfSL "$vim_files_url" -o "$HOME/vim.tgz" && \
@@ -67,7 +67,7 @@ function install_packages() {
 }
 
 install_packages
-grep "jm33" ~/.vimrc || vim_install
+test -e "$HOME/.SpaceVim" || vim_install
 test -e ~/.oh-my-zsh || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
@@ -75,9 +75,12 @@ chown -R jm33:jm33 /home/jm33/.*
 chown -R jm33:jm33 /projects/golang
 
 echo "[*] Enabling BBR..."
-echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
-echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
-sysctl -p
+grep -i "bbr" /etc/sysctl.conf > /dev/null
+if [ ! $? -eq 0 ]; then
+    echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+    echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+    sysctl -p
+fi
 echo "[*] Checking BBR..."
 sysctl net.ipv4.tcp_available_congestion_control
 sysctl net.ipv4.tcp_congestion_control
