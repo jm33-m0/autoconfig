@@ -42,13 +42,7 @@ EOF
 function vim_install() {
     echo '[*] Installing SpaceVim'
     curl -sLf https://spacevim.org/install.sh | bash
-
-    curl -sLf $spacevim_url -o "$HOME/.SpaceVim.d/init.vim"
-    # curl -kfsSL $vimrc_url -o "$HOME/.vimrc"
-
-#     curl -kfSL "$vim_files_url" -o "$HOME/vim.tgz" && \
-#         cd ~ && \
-#         tar xvpf vim.tgz
+    curl -sLf $spacevim_url -o ~/.SpaceVim.d/init.vim
 }
 
 function zsh_install() {
@@ -67,7 +61,7 @@ function install_packages() {
 }
 
 install_packages
-test -e "$HOME/.SpaceVim" || vim_install
+test -e ~/.SpaceVim || vim_install
 test -e ~/.oh-my-zsh || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
