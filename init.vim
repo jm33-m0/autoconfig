@@ -21,6 +21,9 @@ let g:spacevim_enable_debug = 1
 " SpaceVim Layers: {{{
 " }}}
 
+" Change the default directory where all miscellaneous persistent files go.
+" By default it is ~/.cache/vimfiles.
+let g:spacevim_plugin_bundle_dir = '~/.vimfiles'
 
 
 " Hex edit
