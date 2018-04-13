@@ -42,7 +42,6 @@ EOF
 function vim_install() {
     echo '[*] Installing Vim'
     curl -sLf https://github.com/jm33-m0/vim_dotfiles/raw/master/install.sh | bash
-    curl -sLf $spacevim_url -o ~/.SpaceVim.d/init.vim
 }
 
 function zsh_install() {
