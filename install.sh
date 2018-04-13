@@ -40,8 +40,8 @@ EOF
 }
 
 function vim_install() {
-    echo '[*] Installing SpaceVim'
-    curl -sLf https://spacevim.org/install.sh | bash
+    echo '[*] Installing Vim'
+    curl -sLf https://github.com/jm33-m0/vim_dotfiles/raw/master/install.sh | bash
     curl -sLf $spacevim_url -o ~/.SpaceVim.d/init.vim
 }
 
@@ -58,6 +58,8 @@ function install_packages() {
     apt-get update && \
         apt-get dist-upgrade -y && \
         apt-get install -y tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy
+
+    curl https://sh.rustup.rs -sSf | sh
 }
 
 install_packages
