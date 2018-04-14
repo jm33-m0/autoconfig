@@ -34,9 +34,9 @@ function sshd_config() {
     cat << EOF > "$HOME/.ssh/authorized_keys"
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDVaXjv5cX1pjgURLBSleYZYK/jQNr+RF1Sdqa9RHQTGaBynfuuESMU/0BGu8BQLo83F4z5MEzmpG8zOkKjJzbE/1cqfgWEK2KOX5O1LlwqbfMg+8IJd0LMhdlY1o7mvV59s6ke9qcosyq3W3aoRXultfBRgE9GrPxyYmuJyQTiM3S6Y0PDC6FvhyfXpj0lKc6J6vJMF8pzEeWbrqdcd/bBAdpp9wonEs3NBFRso4EwrUV+j9nP61/bD1QfkyjGnJxD8ufcE5V0dLS1SLkGW5ilgp/5fagu9Wj9pEHLNTuUO1pl9tbTEFSXvkeNBCrqBCYH7v4fQRlTtI+P/vzWRiuJLabcvJcwBbaJkc9UoqJ6omw0gBonlY4f5PLHA0epx42cCIcU+7TUAqn2gpqQ9ZCFBYV01e4e+uaC2ko1Es6ua8jrIc2OHuaW8n2MsHfbQfuknDg/08fJu6O7We33pzE2Xc4anOivVfM4MSN5U8BJH5AOIhJA84QrH8PSjIalEowqZDXxb+LVkIPhG7wlqr8kw7wq2ZK9WMz+5tT3XBcJYlPWqwwy/5gKjj9JLBwTiDw1NtXM04327ygKaPBKALfSXSXTB7B1rars7KclgKZ1u3elghqy3jB3vVBCStrxue8aiP7EQhDgfBWZLNhoAFURzfGQ5VDSUHtH+L6K8Ha2tw== jm33@jm33.me
 EOF
-    useradd -m jm33 && \
-        mkdir /home/jm33/.ssh
-    cp ~/.ssh/authorized_keys /home/jm33/.ssh
+useradd -m jm33 && \
+    mkdir /home/jm33/.ssh
+cp ~/.ssh/authorized_keys /home/jm33/.ssh
 }
 
 function vim_install() {
@@ -59,6 +59,11 @@ function install_packages() {
         apt-get install -y tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy
 
     curl https://sh.rustup.rs -sSf | sh
+    rustup update
+    rustup install nightly
+    rustup default nightly
+    rustup component add rustfmt-preview
+    rustup component add rust-srcc
 }
 
 install_packages
