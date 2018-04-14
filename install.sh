@@ -58,12 +58,14 @@ function install_packages() {
         apt-get dist-upgrade -y && \
         apt-get install -y tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy
 
-    curl https://sh.rustup.rs -sSf | sh
+    if [ -d "$HOME/.cargo/rustc" ]; then
+        curl https://sh.rustup.rs -sSf | sh
+    fi
     rustup update
     rustup install nightly
     rustup default nightly
     rustup component add rustfmt-preview
-    rustup component add rust-srcc
+    rustup component add rust-src
 }
 
 install_packages
