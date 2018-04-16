@@ -73,3 +73,5 @@ main() {
     systemctl start ss-redir@config.service
     systemctl enable ss-redir@config.service
 }
+
+main
