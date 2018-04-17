@@ -5,13 +5,13 @@ ss_config="https://raw.githubusercontent.com/jm33-m0/autoconfig/master/ss_config
 ss_service="https://raw.githubusercontent.com/jm33-m0/autoconfig/master/ss-redir@.service"
 dot_config="https://raw.githubusercontent.com/jm33-m0/autoconfig/master/doh-client.conf"
 
-YELLOW="\u001b[33m"
-RED="\u001b[31m"
-END="\u001b[0m"
+YELLOW='\033[0;33m'
+RED='\033[0;31m'
+END='\033[0m'
 
 check_root() {
     if [ ! $(id -u) -eq 0 ]; then
-        echo "$RED[-] You must be root$END"
+        echo -e "$RED[-] You must be root$END"
         exit 1
     fi
 }
@@ -23,9 +23,9 @@ install_ss() {
 }
 
 install_dot() {
-    echo "$YELLOW[*] make sure you have installed Go and configured GOPATH correctly$END"
+    echo -e "$YELLOW[*] make sure you have installed Go and configured GOPATH correctly$END"
     if [ -z $GOPATH ]; then
-        echo "$RED[-] GOPATH not set, can't proceed$END"
+        echo -e "$RED[-] GOPATH not set, can't proceed$END"
         exit 1
     fi
     git clone $dot_repo dot && \
@@ -40,7 +40,7 @@ dns_config() {
     apt-get install dnsmasq -y
     grep "server=127.0.0.1#5353" /etc/dnsmasq.conf > /dev/null
     if [ ! $? -eq 0 ]; then
-        echo "server=127.0.0.1#5353" >> /etc/dnsmasq.conf
+        echo -e "server=127.0.0.1#5353" >> /etc/dnsmasq.conf
     fi
     systemctl enable dnsmasq.service
     systemctl restart dnsmasq.service
@@ -66,12 +66,12 @@ main() {
     curl -fLo /lib/systemd/system/ss-redir@.service $ss_service && \
         systemctl daemon-reload
 
-    # get DNS ready
-    dns_config
-
     # start service
     systemctl start ss-redir@config.service
     systemctl enable ss-redir@config.service
+
+    # get DNS ready
+    dns_config
 }
 
 main
