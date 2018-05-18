@@ -18,15 +18,17 @@ check_root() {
 install_ss() {
     echo -e "$YELLOW[*] Installing Shadowsocks$END"
     if [ "$(uname -m)" = "x86_64" ]; then
-        sudo sh -c 'printf "deb http://deb.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/stretch-backports.list'
-        sudo apt update
-        sudo apt -t stretch-backports install shadowsocks-libev -y
+        sh -c 'printf "deb http://deb.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/stretch-backports.list'
+        apt update
+        apt -t stretch-backports install shadowsocks-libev -y
     else
-        apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake libmbedtls-dev libsodium-dev
+        echo -e "$YELLOW[*] Compiling Shadowsocks$END"
+        apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake libmbedtls-dev libsodium-dev -y
         git clone https://github.com/shadowsocks/shadowsocks-libev.git
         cd shadowsocks-libev || return
         ./autogen.sh && ./configure && make
         make install
+        which ss-redir || echo "$RED[-] SS not installed!"
     fi
 }
 
