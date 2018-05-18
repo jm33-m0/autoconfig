@@ -26,7 +26,8 @@ install_ss() {
         apt-get install --no-install-recommends gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake libmbedtls-dev libsodium-dev -y
         git clone https://github.com/shadowsocks/shadowsocks-libev.git
         cd shadowsocks-libev || return
-        ./autogen.sh && ./configure && make
+        ./autogen.sh
+        ./configure || echo "$RED[-] Configure error!"
         make install
         which ss-redir || echo "$RED[-] SS not installed!"
     fi
