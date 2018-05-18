@@ -16,6 +16,7 @@ check_root() {
 }
 
 install_ss() {
+    echo -e "$YELLOW[*] Installing Shadowsocks$END"
     if [ "$(uname -m)" = "x86_64" ]; then
         sudo sh -c 'printf "deb http://deb.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/stretch-backports.list'
         sudo apt update
@@ -39,6 +40,7 @@ install_dot() {
 
 dns_config() {
     install_dot
+    echo -e "$YELLOW[*] Configuring DNSOverHTTPS$END"
 
     # dnsmasq service
     apt-get install dnsmasq -y
@@ -72,6 +74,7 @@ main() {
     dns_config
 
     # start service
+    echo -e "$YELLOW[*] Starting SS service$END"
     systemctl start ss-redir@config.service
     systemctl enable ss-redir@config.service
 }
