@@ -27,9 +27,9 @@ install_ss() {
         git clone https://github.com/shadowsocks/shadowsocks-libev.git
         cd shadowsocks-libev || return
         ./autogen.sh
-        ./configure || echo "$RED[-] Configure error!"
+        ./configure || echo "$RED[-] Configure error!$END"
         make install
-        which ss-redir || echo "$RED[-] SS not installed!"
+        which ss-redir || echo "$RED[-] SS not installed!$END"
     fi
 }
 
