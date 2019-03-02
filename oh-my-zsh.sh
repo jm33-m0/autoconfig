@@ -92,19 +92,15 @@ alias x='reset'
 alias l='ls -lha'
 alias ll='ls -lh'
 alias q='exit'
-alias ref='sudo apt-get update'
-alias up='sudo apt-get update && sudo apt-get dist-upgrade -y'
-alias i='sudo apt-get install'
-alias cln='sudo apt-get autoremove && sudo apt-get autoclean'
+alias ref='sudo apt update'
+alias up='sudo apt update && sudo apt full-upgrade -y'
+alias i='sudo apt install'
+alias cln='sudo apt autoremove && sudo apt autoclean'
 alias publish='bash /home/jm33/sh/publish.sh'
 alias rm='rm -i'
-alias tmux='tmux -2'" >>~/.zshrc
+" >>~/.zshrc
 
     printf "alias m=\"sudo sh -c %s\"\n" "'echo 1 > /proc/sys/vm/drop_caches'" >>~/.zshrc
-
-    echo "set-option -g default-shell /bin/zsh
-set -g default-terminal "xterm-256color"
-set -g mouse on" >~/.tmux.conf
 
     # If this user's login shell is not already "zsh", attempt to switch.
     TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
