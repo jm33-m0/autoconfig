@@ -8,6 +8,7 @@
 # urls of target scripts and config files
 zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.sh'
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
+dotmux_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/dotmux.tar.gz'
 
 # install curl if no curl is detected
 apt-get update && apt-get install curl -y
@@ -80,6 +81,11 @@ grep "45672" /etc/ssh/sshd_config || sshd_config
 
 chown -R jm33:jm33 /home/jm33/.*
 chown -R jm33:jm33 /projects/golang
+
+# dotmux
+echo '[*] Installing tmux config'
+wget "$dotmux_url"
+tar xvpf dotmux.tar.gz -C "$HOME"
 
 echo "[*] Enabling BBR..."
 grep -i "bbr" /etc/sysctl.conf >/dev/null
