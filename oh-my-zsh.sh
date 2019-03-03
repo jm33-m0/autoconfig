@@ -83,7 +83,7 @@ main() {
 
     echo "
 export GOPATH="/projects/golang"
-export PATH="$PATH:/projects/golang/bin"
+export PATH="$PATH:/projects/golang/bin:$HOME/.local/bin"
 
 alias re='systemctl reboot'
 alias off='systemctl poweroff'
