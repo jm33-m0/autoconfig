@@ -67,6 +67,9 @@ function install_packages() {
     # shell format for vim-autofmt
     go get -u -v mvdan.cc/sh/cmd/shfmt
 
+    # drive sync
+    go get -u -v github.com/odeke-em/drive/cmd/drive
+
     # python related
     apt install python3-autopep8 pylint3 -y
     python2 -m pip install pylint --user
