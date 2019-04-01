@@ -10,6 +10,8 @@ zsh_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/oh-my-zsh.s
 sshd_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/sshd_config'
 dotmux_url='https://raw.githubusercontent.com/jm33-m0/autoconfig/master/dotmux.tar.gz'
 
+export GOPATH=/projects/golang
+
 # install curl if no curl is detected
 apt-get update && apt-get install curl -y
 
