@@ -66,7 +66,7 @@ function install_packages() {
     info 'Installing daily packages'
     apt update &&
         apt full-upgrade -y &&
-        apt install -y curl tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy aria2 powerline shellcheck llvm clang-format tor
+        apt install -y curl tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy aria2 powerline shellcheck llvm clang-format tor vim-gnome
 
 }
 
