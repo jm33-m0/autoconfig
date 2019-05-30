@@ -49,14 +49,15 @@ EOF
 function vim_install() {
     info 'Installing Vim'
     bash scripts/vim-install.sh
+
+    cp -av conf/vimrc /home/jm33/.vimrc
+    sudo cp -av conf/vimrc /root/.vimrc
+    cp -avr ~/.vim /home/jm33
 }
 
 function zsh_install() {
     info 'Installing oh-my-zsh'
     bash scripts/oh-my-zsh.sh
-    cp -av conf/vimrc /home/jm33/.vimrc
-    sudo cp -av conf/vimrc /root/.vimrc
-    cp -avr ~/.vim /home/jm33
 }
 
 function install_packages() {
@@ -120,6 +121,9 @@ warning "Set password for jm33:"
 passwd jm33
 warning 'Set password for root:'
 passwd
+
+info 'Change shell for jm33'
+chsh -s /bin/zsh jm33
 
 # must be put at the end
 test -e ~/.oh-my-zsh || zsh_install
