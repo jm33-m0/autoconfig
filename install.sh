@@ -4,13 +4,13 @@
 
 YELLOW='\033[0;33m'
 RED='\033[0;31m'
-BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 END='\033[0m'
 
 export GOPATH=/projects/golang
 
 function info() {
-    echo -e "$BLUE [*] $1 $END"
+    echo -e "$CYAN [*] $1 $END"
 }
 
 function warning() {
