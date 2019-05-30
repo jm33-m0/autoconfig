@@ -89,6 +89,7 @@ function wireguard() {
 }
 
 install_packages
+wireguard
 test -e ~/.vim || vim_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
