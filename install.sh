@@ -54,6 +54,9 @@ function vim_install() {
 function zsh_install() {
     info 'Installing oh-my-zsh'
     bash scripts/oh-my-zsh.sh
+    cp -av conf/vimrc /home/jm33/.vimrc
+    sudo cp -av conf/vimrc /root/.vimrc
+    cp -avr ~/.vim /home/jm33
 }
 
 function install_packages() {
@@ -65,13 +68,23 @@ function install_packages() {
         apt full-upgrade -y &&
         apt install -y curl tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy aria2 powerline shellcheck llvm clang-format tor
 
-    add-apt-repository -y ppa:wireguard/wireguard
-    apt update
-    apt install -y wireguard
+}
 
-    umask 077
-    cd /etc/wireguard &&
-        wg genkey | tee privatekey | wg pubkey >publickey
+function wireguard() {
+    if cat /etc/*release* | grep -i 'ubuntu' >/dev/null 2>&1; then
+        add-apt-repository -y ppa:wireguard/wireguard
+        apt update
+        apt install -y wireguard
+
+        umask 077
+        cd /etc/wireguard &&
+            wg genkey | tee privatekey | wg pubkey >publickey
+    else
+        echo "deb http://deb.debian.org/debian/ unstable main" >/etc/apt/sources.list.d/unstable.list
+        printf 'Package: *\nPin: release a=unstable\nPin-Priority: 90\n' >/etc/apt/preferences.d/limit-unstable
+        apt update
+        apt install -y wireguard
+    fi
 }
 
 install_packages
