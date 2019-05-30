@@ -89,7 +89,6 @@ function wireguard() {
 
 install_packages
 test -e ~/.vim || vim_install
-test -e ~/.oh-my-zsh || zsh_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
 info 'Changing file permissions for jm33...'
@@ -121,3 +120,6 @@ warning "Set password for jm33:"
 passwd jm33
 warning 'Set password for root:'
 passwd
+
+# must be put at the end
+test -e ~/.oh-my-zsh || zsh_install
