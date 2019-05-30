@@ -5,7 +5,7 @@
 ### Install oh-my-zsh
 
 ```bash
-wget 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/conf/oh-my-zsh.sh' -O - | bash
+wget 'https://raw.githubusercontent.com/jm33-m0/autoconfig/master/scripts/oh-my-zsh.sh' -O - | bash
 ```
 
 ### Initialize Ubuntu 16.04+
