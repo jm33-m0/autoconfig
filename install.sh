@@ -31,7 +31,7 @@ check_root() {
 function sshd_config() {
     check_root
     info 'Installing ssh_config'
-    cp -av conf/sshd_config /etc/ssh/sshd_config
+    cp -av ./conf/sshd_config /etc/ssh/sshd_config
     systemctl restart ssh.service || service sshd restart
 
     info 'Adding user jm33'
@@ -48,16 +48,16 @@ EOF
 
 function vim_install() {
     info 'Installing Vim'
-    bash scripts/vim-install.sh
+    bash ./scripts/vim-install.sh
 
-    cp -av conf/vimrc /home/jm33/.vimrc
-    sudo cp -av conf/vimrc /root/.vimrc
+    cp -av ./conf/vimrc /home/jm33/.vimrc
+    sudo cp -av ./conf/vimrc /root/.vimrc
     cp -avr ~/.vim /home/jm33
 }
 
 function zsh_install() {
     info 'Installing oh-my-zsh'
-    bash scripts/oh-my-zsh.sh
+    bash ./scripts/oh-my-zsh.sh
 }
 
 function install_packages() {
@@ -102,8 +102,8 @@ ls -lah /projects
 
 # dotmux
 info 'Installing tmux config'
-cp -av conf/.tmux.conf /home/jm33/.tmux.conf
-sudo cp -av conf/.tmux.conf /root/.tmux.conf
+cp -av ./conf/.tmux.conf /home/jm33/.tmux.conf
+sudo cp -av ./conf/.tmux.conf /root/.tmux.conf
 
 info "Enabling BBR..."
 grep -i "bbr" /etc/sysctl.conf >/dev/null
