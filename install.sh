@@ -72,6 +72,7 @@ function install_packages() {
 }
 
 function wireguard() {
+    info 'Installing Wireguard...'
     if cat /etc/*release* | grep -i 'ubuntu' >/dev/null 2>&1; then
         apt install -y software-properties-common
         add-apt-repository -y ppa:wireguard/wireguard
@@ -90,7 +91,6 @@ function wireguard() {
 }
 
 install_packages
-wireguard
 test -e ~/.vim || vim_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
@@ -126,6 +126,9 @@ passwd
 
 info 'Change shell for jm33'
 chsh -s /bin/zsh jm33
+
+# rememeber to go back to previous dir
+wireguard && cd -
 
 # must be put at the end
 test -e ~/.oh-my-zsh || zsh_install
