@@ -15,6 +15,8 @@ Plug 'w0rp/ale' " general linter
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " tag list
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " file explorer
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+
 Plug 'tomtom/tcomment_vim'
 " Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
@@ -30,7 +32,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-" Plug 'chazy/cscope_maps', { 'for': 'c' }
+Plug 'chazy/cscope_maps', { 'for': 'c' }
 
 " Appearance
 Plug 'flazz/vim-colorschemes'
