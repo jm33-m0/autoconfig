@@ -10,8 +10,8 @@ call plug#begin('~/.vim/bundle')
 
 " General dev
 Plug 'w0rp/ale' " general linter
-" Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer --go-completer' } " general completer
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer --go-completer' } " general completer
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " tag list
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " file explorer
 Plug 'jiangmiao/auto-pairs'
@@ -28,7 +28,7 @@ Plug 'junegunn/vim-easy-align'
 
 
 " Languages
-" Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries'}
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries'}
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -93,6 +93,7 @@ set nomodeline
 nmap <leader>k :bdelete<CR>
 " Switch to next buffer
 nmap <leader>l :bn<CR>
+nmap <leader>p :bp<CR>
 nmap <leader>n :enew <CR>
 nmap <leader>_ :new <CR>
 nmap <leader>- :vnew <CR>
