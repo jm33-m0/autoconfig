@@ -9,9 +9,9 @@ set nocompatible              " be iMproved, required
 call plug#begin('~/.vim/bundle')
 
 " General dev
-Plug 'w0rp/ale' " general linter
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer --go-completer' } " general completer
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+" Plug 'w0rp/ale' " general linter
+" Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang-completer --go-completer' } " general completer
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " tag list
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " file explorer
 Plug 'jiangmiao/auto-pairs'
@@ -28,7 +28,7 @@ Plug 'junegunn/vim-easy-align'
 
 
 " Languages
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries'}
+" Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries'}
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -209,7 +209,8 @@ set background=dark
 set t_Co=256
 
 try
-    colorscheme molokai_dark
+    colorscheme mod8
+    " colorscheme molokai_dark
     " colorscheme molokai
 catch
     colorscheme default
