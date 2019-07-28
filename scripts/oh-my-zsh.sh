@@ -81,24 +81,33 @@ main() {
 
     sed -i "s/robbyrussell/ys/g" ~/.zshrc
 
-    echo "
+    echo '
+recycle() {
+    dir=$(date --iso-8601)
+    if [ ! -d /recyclebin/"$dir" ]; then
+        mkdir /recyclebin/"$dir"
+    fi
+    mv -i "$@" /recyclebin/"$dir"
+}
+
+
 export GOPATH="/projects/golang"
 export PATH="$PATH:/projects/golang/bin:$HOME/.local/bin"
 
-alias re='systemctl reboot'
-alias off='systemctl poweroff'
-alias c='clear'
-alias x='reset'
-alias l='ls -lha'
-alias ll='ls -lh'
-alias q='exit'
-alias ref='sudo apt update'
-alias up='sudo apt update && sudo apt full-upgrade -y'
-alias i='sudo apt install'
-alias cln='sudo apt autoremove && sudo apt autoclean'
-alias publish='bash /home/jm33/sh/publish.sh'
-alias rm='rm -i'
-" >>~/.zshrc
+alias re="systemctl reboot"
+alias off="systemctl poweroff"
+alias c="clear"
+alias x="reset"
+alias l="ls -lha"
+alias ll="ls -lh"
+alias q="exit"
+alias ref="sudo apt update"
+alias up="sudo apt update && sudo apt full-upgrade -y"
+alias i="sudo apt install"
+alias cln="sudo apt autoremove && sudo apt autoclean"
+alias publish="bash /home/jm33/sh/publish.sh"
+alias rm=recycle
+' >>~/.zshrc
 
     printf "alias m=\"sudo sh -c %s\"\n" "'echo 1 > /proc/sys/vm/drop_caches'" >>~/.zshrc
 
