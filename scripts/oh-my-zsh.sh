@@ -87,7 +87,8 @@ recycle() {
     if [ ! -d /recyclebin/"$dir" ]; then
         mkdir /recyclebin/"$dir"
     fi
-    mv -i "$@" /recyclebin/"$dir"
+    rsync -av "$@" /recyclebin/"$dir"
+    /bin/rm -rf "$@"
 }
 
 
