@@ -84,11 +84,10 @@ main() {
     echo '
 recycle() {
     dir=$(date --iso-8601)
-    if [ ! -d /recyclebin/"$dir" ]; then
+    if [ ! -d /recyclebin/"$dir"  ]; then
         mkdir /recyclebin/"$dir"
     fi
-    rsync -av "$@" /recyclebin/"$dir"
-    /bin/rm -rf "$@"
+    mv -f "$@" /recyclebin/"$dir" >/dev/null 2>&1 || rsync -av "$@" /recyclebin/"$dir" && rm -rf "$@"
 }
 
 
