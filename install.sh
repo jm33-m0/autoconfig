@@ -67,7 +67,7 @@ function install_packages() {
     info 'Installing daily packages'
     apt update &&
         apt full-upgrade -y &&
-        apt install -y curl tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy aria2 powerline shellcheck llvm clang-format tor vim-gnome
+        apt install -y curl tmux nmap glances htop iftop build-essential mtr python-dev python3-dev python-pip python-setuptools python3-setuptools python3-pip autoconf automake make cmake clang golang git zsh obfs4proxy aria2 powerline shellcheck llvm clang-format tor
 
 }
 
@@ -128,7 +128,7 @@ info 'Change shell for jm33'
 chsh -s /bin/zsh jm33
 
 # rememeber to go back to previous dir
-wireguard && cd -
+wireguard && cd - || return
 
 # must be put at the end
 test -e ~/.oh-my-zsh || zsh_install
