@@ -51,6 +51,7 @@ function vim_install() {
     bash ./scripts/vim-install.sh
 
     cp -av ./conf/vimrc /home/jm33/.vimrc
+    cp -av ./conf/gtags.conf /home/jm33/.vim/gtags.conf
     sudo cp -av ./conf/vimrc /root/.vimrc
     cp -avr ~/.vim /home/jm33
 }
