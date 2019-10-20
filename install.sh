@@ -83,10 +83,12 @@ function wireguard() {
         umask 077
         cd /etc/wireguard &&
             wg genkey | tee privatekey | wg pubkey >publickey
-    else
+    elif cat /etc/*release* | grep -i 'buster' >/dev/null 2>&1; then
         echo "deb http://deb.debian.org/debian/ unstable main" >/etc/apt/sources.list.d/unstable.list
         printf 'Package: *\nPin: release a=unstable\nPin-Priority: 90\n' >/etc/apt/preferences.d/limit-unstable
         apt update
+        apt install -y wireguard
+    else
         apt install -y wireguard
     fi
 }
@@ -96,7 +98,7 @@ test -e ~/.vim || vim_install
 grep "45672" /etc/ssh/sshd_config || sshd_config
 
 info 'Changing file permissions for jm33...'
-chown -R jm33:jm33 /home/jm33/.*
+chown -R jm33:jm33 /home/jm33
 chown -R jm33:jm33 /projects
 ls -lah /home/jm33
 ls -lah /projects
@@ -104,6 +106,7 @@ ls -lah /projects
 # dotmux
 info 'Installing tmux config'
 cp -av ./conf/.tmux.conf /home/jm33/.tmux.conf
+chown -R jm33:jm33 /home/jm33
 sudo cp -av ./conf/.tmux.conf /root/.tmux.conf
 
 info "Enabling BBR..."
@@ -128,7 +131,7 @@ passwd
 info 'Change shell for jm33'
 chsh -s /bin/zsh jm33
 
-# rememeber to go back to previous dir
+# install wireguard
 wireguard && cd - || return
 
 # must be put at the end
