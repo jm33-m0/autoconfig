@@ -379,6 +379,9 @@ let g:ale_sign_warning = '⚠'
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
 highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
 
+" parse Makefile, to recognize include path
+let g:ale_c_parse_makefile = 1
+
 let g:ale_linters_explicit = 1
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
@@ -515,7 +518,7 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 set autowrite
 
-nmap <leader>gr :GoRefers<cr>
+nmap <leader>gr :GoReferrers<cr>
 
 " jedi.vim
 " let g:jedi#use_tabs_not_buffers = 1
