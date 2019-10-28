@@ -16,6 +16,7 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " tag list
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " file explorer
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
+Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'tomtom/tcomment_vim'
 " Plug 'ervandew/supertab'
