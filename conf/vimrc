@@ -206,6 +206,7 @@ nnoremap ^ <nop>
 " Enable syntax highlighting
 syntax enable
 syntax on
+autocmd BufEnter * :syntax sync fromstart " syntax highlighting breaks when paging up/down
 
 let g:rehash256 = 1
 let g:molokai_original = 1
@@ -330,7 +331,7 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 if !isdirectory(s:vim_tags)
     silent! call mkdir(s:vim_tags, 'p')
 endif
-
+let g:gutentags_define_advanced_commands = 1
 
 """""""""""" YCM conf
 " Apply YCM FixIt
@@ -382,6 +383,7 @@ highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
 
 " parse Makefile, to recognize include path
 let g:ale_c_parse_makefile = 1
+let g:ale_c_parse_compile_commands = 1
 
 let g:ale_linters_explicit = 1
 let g:ale_completion_delay = 500
