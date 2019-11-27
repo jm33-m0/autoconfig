@@ -408,6 +408,7 @@ let g:ale_linters = {
             \   'cpp': ['cppcheck'],
             \   'go': ['golangci-lint', 'golint', 'govet'],
             \   'c': ['gcc'],
+            \   'sh': ['shellcheck'],
             \}
 
 let g:ale_fixers = {
