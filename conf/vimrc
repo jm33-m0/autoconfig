@@ -396,13 +396,18 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
+" do NOT enable-all go linters
+let g:ale_go_golangci_lint_options = ''
+" package level please
+let g:ale_go_golangci_lint_package = 1
+
 let g:ale_linters = {
             \   'javascript': ['eslint'],
             \   'rust': ['rls'],
             \   'python': ['pylint'],
             \   'cpp': ['cppcheck'],
+            \   'go': ['golangci-lint'],
             \   'c': ['gcc'],
-            \   'go': ['gometalinter'],
             \}
 
 let g:ale_fixers = {
