@@ -22,7 +22,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'Chiel92/vim-autoformat'
-Plug 'junegunn/vim-easy-align'
+" Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/LeaderF' " Ctrl-P search
 
 " Languages
@@ -175,11 +175,14 @@ set foldnestmax=10
 set foldmethod=syntax
 
 " copy and paste
-nnoremap Y "+y
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 if has('win32')
     set clipboard=unnamed
-else
-    set clipboard=unnamedplus
+" else
+"     set clipboard=unnamedplus
 endif
 
 " space open/closes folds
@@ -212,8 +215,8 @@ set background=dark
 set t_Co=256
 
 try
-    colorscheme mod8
-    " colorscheme molokai_dark
+    " colorscheme mod8
+    colorscheme molokai_dark
     " colorscheme molokai
 catch
     colorscheme default
