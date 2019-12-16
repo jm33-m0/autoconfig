@@ -136,3 +136,13 @@ wireguard && cd - || return
 
 # must be put at the end
 test -e ~/.oh-my-zsh || zsh_install
+
+# if we are on a server
+# shellcheck disable=SC2016
+if ! command -v gnome-terminal; then
+    grep 'SSH_AUTH_SOCK' ~/.zshrc || echo 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"' >>~/.zshrc
+    mkdir -p ~/.config/systemd/user
+    cp -v ./conf/ssh-agent.service ~/.config/systemd/user/ssh-agent.service
+    systemctl --user enable ssh-agent.service
+    systemctl --user start ssh-agent.service
+fi

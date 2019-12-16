@@ -92,7 +92,8 @@ recycle() {
 
 
 export GOPATH="/projects/golang"
-export PATH="$PATH:/projects/golang/bin:$HOME/.local/bin"
+export PATH="$PATH:/projects/golang/bin:$HOME/.local/bin:/snap/bin"
+export EDITOR="vim"
 
 alias re="systemctl reboot"
 alias off="systemctl poweroff"
