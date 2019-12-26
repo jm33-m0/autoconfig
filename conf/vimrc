@@ -41,6 +41,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
+Plug 'takac/vim-hardtime'
 " Plug 'lambdalisue/vim-fullscreen' " for Windows
 
 call plug#end()
@@ -51,6 +52,9 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set to auto read when a file is changed from the outside
 set autoread
+
+" Enable hard mode
+let g:hardtime_default_on = 1
 
 "Dismiss the start screen
 set shortmess=atI
