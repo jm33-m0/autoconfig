@@ -24,12 +24,12 @@ main() {
     # which may fail on systems lacking tput or terminfo
     set -e
 
-    CHECK_ZSH_INSTALLED=$(grep /zsh$ /etc/shells | wc -l)
-    if [ ! $CHECK_ZSH_INSTALLED -ge 1 ]; then
-        printf "${YELLOW}Zsh is not installed!${NORMAL} Please install zsh first!\n"
-        exit
-    fi
-    unset CHECK_ZSH_INSTALLED
+    # CHECK_ZSH_INSTALLED=$(grep /zsh$ /etc/shells | wc -l)
+    # if [ ! $CHECK_ZSH_INSTALLED -ge 1 ]; then
+    #     printf "${YELLOW}Zsh is not installed!${NORMAL} Please install zsh first!\n"
+    #     exit
+    # fi
+    # unset CHECK_ZSH_INSTALLED
 
     if [ ! -n "$ZSH" ]; then
         ZSH=~/.oh-my-zsh
@@ -82,17 +82,6 @@ main() {
     sed -i "s/robbyrussell/ys/g" ~/.zshrc
 
     echo '
-recycle() {
-    dir=$(date --iso-8601)
-    if [ ! -d /recyclebin/"$dir"  ]; then
-        mkdir /recyclebin/"$dir" || sudo mkdir -p /recyclebin/"$dir"
-    fi
-    mv -f "$@" /recyclebin/"$dir" >/dev/null 2>&1 || rsync -av "$@" /recyclebin/"$dir" && rm -rf "$@"
-}
-
-
-export GOPATH="/projects/golang"
-export PATH="$PATH:/projects/golang/bin:$HOME/.local/bin:/snap/bin"
 export EDITOR="vim"
 
 alias re="systemctl reboot"
@@ -106,8 +95,6 @@ alias ref="sudo apt update"
 alias up="sudo apt update && sudo apt full-upgrade -y"
 alias i="sudo apt install"
 alias cln="sudo apt autoremove && sudo apt autoclean"
-alias publish="bash /home/jm33/sh/publish.sh"
-alias rm=recycle
 ' >>~/.zshrc
 
     printf "alias m=\"sudo sh -c %s\"\n" "'echo 1 > /proc/sys/vm/drop_caches'" >>~/.zshrc
